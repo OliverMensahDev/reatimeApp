@@ -45,7 +45,22 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
-    {
+    {   
+        if($exception instanceof \Tymon\JWTAuth\Exceptions\TokenBlacklistedException){
+            return response(["Error" => "Token is expired get New One"], \Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
+        }
+
+        if($exception instanceof \Tymon\JWTAuth\Exceptions\Tymon\JWTAuth\Exceptions\TokenInvalidException){
+            return response(["Error" => "Token is invalid"], \Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
+        }
+
+        if($exception instanceof \Tymon\JWTAuth\Exceptions\Tymon\JWTAuth\Exceptions\TokenExpiredException){
+            return response(["Error" => "Token is expired"], \Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
+        }
+
+        if($exception instanceof \Tymon\JWTAuth\Exceptions\JWTException){
+            return response(["Error" => "Token is not provided"], \Symfony\Component\HttpFoundation\Response::HTTP_BAD_REQUEST);
+        }
         return parent::render($request, $exception);
     }
 }

@@ -6,7 +6,18 @@ use App\Model\Reply;
 use Illuminate\Http\Request;
 
 class LikeController extends Controller
-{
+{   
+    /**
+     * Create a new AuthControl instance
+     * 
+     */
+
+    public function __construct()
+    {
+        $this->middleware("JWT");
+    }
+
+
     public function likeIt(Reply $reply)
     {
        $reply->like()->create([

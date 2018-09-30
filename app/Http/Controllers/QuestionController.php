@@ -5,7 +5,17 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\QuestionResource;
 class QuestionController extends Controller
-{    
+{  
+    /**
+     * Create a new AuthControl instance
+     * 
+     */
+
+    public function __construct()
+    {
+        $this->middleware("JWT", ['except'=> ['index', 'show']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

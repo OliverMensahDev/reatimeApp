@@ -7,7 +7,17 @@ use Illuminate\Http\Request;
 use App\Http\Resources\CategoryResource;
 
 class CategoryController extends Controller
-{
+{   
+    /**
+     * Create a new AuthControl instance
+     * 
+     */
+
+    public function __construct()
+    {
+        $this->middleware("JWT", ['except'=> ['index', 'show']]);
+    }
+    
     /**
      * Display a listing of the resource.
      *
