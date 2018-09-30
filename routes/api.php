@@ -12,7 +12,9 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::apiResource('/question', 'QuestionController');
+Route::apiResource('/category', 'CategoryController');
+//get a particular question before its reply
+Route::apiResource('/question/{question}/reply', 'ReplyController');
+Route::post('/reply/{reply}/like', 'LikeController@likeIt');
+Route::delete('/reply/{reply}/like', 'LikeController@unLikeIt');
